@@ -34,6 +34,39 @@ const catagoriapi = (id) => {
 
         })
 }
+const showDetails=(videoId)=>{
+    const url = `
+    https://openapi.programming-hero.com/api/phero-tube/video/${videoId}
+    `;
+    fetch(url)
+    .then(res => res.json())
+    .then(data =>{
+        displayDetails(data.video)
+    })
+}
+const displayDetails = (video)=>{
+    document.getElementById("videoDetails").showModal();
+    const detailsConteiner = document.getElementById("showDetails");
+    detailsConteiner.innerHTML = `
+                    <div class="card bg-base-100 image-full shadow-sm">
+                        <figure >
+                            <img class=" object-cover w-[100%]" src="${video.thumbnail}"
+                                alt="" />
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">${video.title}</h2>
+                            <p>${video.description}</p>
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <button class="btn hover:bg-[#FF1F3D] hover:text-[#F9F9F9]">Close</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+   `;
+    
+}
 const videoapi = (allvideos) => {
     const videoSection = document.getElementById("video-conteiner");
     videoSection.innerHTML = "";
@@ -69,13 +102,13 @@ const videoapi = (allvideos) => {
                            <p class="text-sm text-gray-400">${video.others.views}</p>
                 </div>
             </div>
+            <button onclick = showDetails('${video.video_id}') class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl hover:bg-[#FF1F3D] hover:text-[#F9F9F9]">Show Details</button>
         </div>
     `;
         videoSection.append(videoCard)
     });
 
 }
-
 const diplayData = (categorie) => {
     const catagoryContainer = document.getElementById("catagory-container");
 
