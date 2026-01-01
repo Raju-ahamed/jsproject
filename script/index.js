@@ -40,7 +40,7 @@ const videoapi = (allvideos) => {
     if (allvideos.length === 0) {
         videoSection.innerHTML = `
         <div class="col-span-full flex flex-col justify-center items-center py-20 text-center">
-        <img src="/ph-tubecode/assests/Icon.png" alt="">
+        <img src="/assests/Icon.png" alt="">
         <h2 class="text-2xl font-bold">Oops! No Video Abailable!</h2>
     </div>
         `;
