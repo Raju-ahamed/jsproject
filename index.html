@@ -19,7 +19,17 @@
     <header>
         <nav class="w-11/12 mx-auto flex justify-between border-b-2 border-[#17171720] py-5">
             <div class="logo w-[150px]"><img src="./assests/Logo.png" alt=""></div>
-            <div class="sort btn"><button>Sort by view</button></div>
+            <div>
+                <label class="input">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input id="search-input" type="search" required placeholder="Search" />
+                </label>
+            </div>
             <div class="blogs btn bg-[#FF1F3D] text-[#F9F9F9]"><button>Blog</button></div>
         </nav>
     </header>
@@ -28,8 +38,12 @@
 
     </nav>
 
+
+<section id="loader" class="text-center py-10 hidden">
+    <span class="loading loading-ring loading-xl "></span>
+</section>
     <section id="video-conteiner" class="w-11/12 grid grid-cols-4 mx-auto gap-3 ">
-    <div class="col-span-full flex flex-col justify-center items-center py-20 text-center">
+        <div class="col-span-full flex flex-col justify-center items-center py-20 text-center">
         <img src="/assests/Icon.png" alt="">
         <h2 class="text-2xl font-bold">Oops! No Video Abailable!</h2>
     </div>

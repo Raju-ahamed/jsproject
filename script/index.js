@@ -1,3 +1,12 @@
+const showLoader=()=>{
+    document.getElementById("loader").classList.remove("hidden");
+    document.getElementById("video-conteiner").classList.add("hidden");
+
+}
+const removeLoader =()=>{
+    document.getElementById("loader").classList.add("hidden");
+    document.getElementById("video-conteiner").classList.remove("hidden");
+}
 const loadcatagory = () => {
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
         .then(res => res.json())
@@ -6,8 +15,9 @@ const loadcatagory = () => {
 
         })
 }
-const loadVideos = () => {
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVideos = (input ="") => {
+    showLoader();
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${input}`)
         .then(res => res.json())
         .then(data => {
             document.getElementById("btn-all").classList.add("active");
@@ -33,6 +43,7 @@ const catagoriapi = (id) => {
             btnSelected.classList.add("active");
 
         })
+    showLoader();
 }
 const showDetails=(videoId)=>{
     const url = `
@@ -77,9 +88,11 @@ const videoapi = (allvideos) => {
         <h2 class="text-2xl font-bold">Oops! No Video Abailable!</h2>
     </div>
         `;
+        removeLoader();
         return;
     }
     allvideos.forEach((video) => {
+        const verified = video.authors[0].verified;
         const videoCard = document.createElement("div");
         videoCard.innerHTML = `
          <div class="card bg-base-10">
@@ -97,9 +110,10 @@ const videoapi = (allvideos) => {
                 </div>
                 <div class="intro">
                     <h2 class="text-sm font-semibold">${video.title}</h2>
-                    <p class="text-sm text-gray-400 flex gap-1">${video.authors[0].profile_name} <img
-                           class="w-5 h-5" src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png" alt=""></p>
+                    <p class="text-sm text-gray-400 flex gap-1">${video.authors[0].profile_name}  ${verified === true ? `<img
+                           class="w-5 h-5" src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png" alt="">` : ` `}</p>
                            <p class="text-sm text-gray-400">${video.others.views}</p>
+                           
                 </div>
             </div>
             <button onclick = showDetails('${video.video_id}') class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl hover:bg-[#FF1F3D] hover:text-[#F9F9F9]">Show Details</button>
@@ -107,7 +121,7 @@ const videoapi = (allvideos) => {
     `;
         videoSection.append(videoCard)
     });
-
+    removeLoader();
 }
 const diplayData = (categorie) => {
     const catagoryContainer = document.getElementById("catagory-container");
@@ -121,4 +135,8 @@ const diplayData = (categorie) => {
         catagoryContainer.append(catagoryDiv)
     }
 }
+document.getElementById("search-input").addEventListener("keyup",(e)=>{
+const input = e.target.value;
+    loadVideos(input);
+})
 loadcatagory();
